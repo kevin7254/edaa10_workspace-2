@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cs_edaa10/cs_edaa10.iml" filepath="$PROJECT_DIR$/cs_edaa10/cs_edaa10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inl1/inl1.iml" filepath="$PROJECT_DIR$/inl1/inl1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inl2/inl2.iml" filepath="$PROJECT_DIR$/inl2/inl2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inl3/inl3.iml" filepath="$PROJECT_DIR$/inl3/inl3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn10/ovn10.iml" filepath="$PROJECT_DIR$/ovn10/ovn10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn11/ovn11.iml" filepath="$PROJECT_DIR$/ovn11/ovn11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn2/ovn2.iml" filepath="$PROJECT_DIR$/ovn2/ovn2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn4/ovn4.iml" filepath="$PROJECT_DIR$/ovn4/ovn4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn5/ovn5.iml" filepath="$PROJECT_DIR$/ovn5/ovn5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn7/ovn7.iml" filepath="$PROJECT_DIR$/ovn7/ovn7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn8/ovn8.iml" filepath="$PROJECT_DIR$/ovn8/ovn8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ovn9/ovn9.iml" filepath="$PROJECT_DIR$/ovn9/ovn9.iml" />
+    </modules>
+  </component>
+</project>
