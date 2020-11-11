@@ -1,7 +1,6 @@
 import se.lth.cs.p.inl1.*;
 import se.lth.cs.p.inl1.nbr12.Key;
 import se.lth.cs.p.inl1.nbr12.TestCase;
-
 import java.util.ArrayList;
 
 public class Decryptographer {
@@ -19,9 +18,7 @@ public class Decryptographer {
             numbers.add(num % 10);
             num = num / 10;
         }
-
     }
-
 
     public String decrypt(String text) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -56,13 +53,11 @@ public class Decryptographer {
         return (char) (position + 'A'); //Ex: position = 5 (index i alpabetet) ger bokstaven F.
     }
 
-
     public static void main(String[] args) {
         TextWindow window = new TextWindow("Decryptographer");
         TestCase c = new TestCase();
         Key key = new Key();
         Decryptographer d = new Decryptographer(key);
-
 
         TextView cryptoView = new TextView("Kryptotext: ", 2, 150);
         window.addView(cryptoView);
