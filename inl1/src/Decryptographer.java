@@ -3,69 +3,81 @@ import se.lth.cs.p.inl1.nbr12.Key;
 import se.lth.cs.p.inl1.nbr12.TestCase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Decryptographer {
 
     Key key;
+    ArrayList<Integer> numbers;
+    private int num;
+    final int numSize = 5;
 
     public Decryptographer(Key key) {
         this.key = key;
+        this.num = key.get5DigitNumber();
+        this.numbers = new ArrayList<>();
+
+        while (num > 0) {  //Delar upp keyn i en arraylist av typ Integer
+            numbers.add(num % 10);
+            num = num / 10;
+        }
+
     }
 
 
     public String decrypt(String text) {
+        StringBuilder stringBuilder = new StringBuilder();
+        ArrayList<Character> encryptedCharacters = new ArrayList<>();
 
-        int num = key.get5DigitNumber();
-        ArrayList<Integer> numbers = new ArrayList<>();
-        ArrayList<Integer> indexCheck = new ArrayList<>();
-        ArrayList<Character> characters = new ArrayList<>();
-
-        for (int i = 0;i<text.length(); i++) {
-            characters.add(text.charAt(i));
+        for (int i = 0; i < text.length(); i++) { // delar upp String text i en char arraylist
+            encryptedCharacters.add(text.charAt(i));
         }
 
-
-        for (char s : characters) {
-            indexCheck.add(s - 'A');
+        int keyPosition = 0;
+        for (char c : encryptedCharacters) {
+            if (c == ' ') {
+                stringBuilder.append(c);
+                continue; //om det är mellanslag skippa till nästa iteration av loopen bara
+            }
+            stringBuilder.append(getDecryptedChar(c, numbers.get(keyPosition % numSize))); //Talet upprepas när den 5e siffran uttnyttjas.
+            keyPosition++;
         }
+        return stringBuilder.toString();
+    }
 
-        while (num > 0) {  //Delar upp keyn i en arraylist av typ Integer
-
-            numbers.add(num % 10);
-
-            num = num / 10;
+    /**
+     * @param encryptedChar Krypterad bokstav
+     * @param keyPosition   1 (första alfabetet) eller 2 (andra alpabetet)
+     * @return Den dekrypterade bokstaven.
+     */
+    private char getDecryptedChar(char encryptedChar, int keyPosition) {
+        int position = 0;
+        while (key.getLetter(position, keyPosition) != encryptedChar) {
+            position++;
         }
-
-        int i = 0;
-        for (int numb : numbers) {
-            System.out.println(indexCheck);
-                System.out.println(key.getLetter(indexCheck.get(i),numb));
-                i++;
-        }
-
-        return text;
+        return (char) (position + 'A'); //Ex: position = 5 (index i alpabetet) ger bokstaven F.
     }
 
 
     public static void main(String[] args) {
-
-        TextWindow window = new TextWindow("Title");
-        TextView view = new TextView("Test", 50, 150);
-        TestCase case1 = new TestCase();
+        TextWindow window = new TextWindow("Decryptographer");
+        TestCase c = new TestCase();
         Key key = new Key();
-
-        window.addView(view);
-
-        view.displayText(case1.getCryptoText(1));
-
-        Decryptographer decrypt1 = new Decryptographer(key);
-
-        decrypt1.decrypt(case1.getCryptoText(1));
+        Decryptographer d = new Decryptographer(key);
 
 
+        TextView cryptoView = new TextView("Kryptotext: ", 2, 150);
+        window.addView(cryptoView);
+        TextView clearView = new TextView("Min klartext: ", 2, 150);
+        window.addView(clearView);
+        TextView correctClearView = new TextView("Korrekt klartext: ", 2, 150);
+        window.addView(correctClearView);
+
+        for (int i = 1; i <= 5; i++) {
+            cryptoView.displayText(c.getCryptoText(i));
+            clearView.displayText(d.decrypt(c.getCryptoText(i)));
+            correctClearView.displayText(c.getClearText(i));
+            window.waitForMouseClick();
+        }
     }
-
 
 }
