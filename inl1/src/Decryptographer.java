@@ -6,14 +6,13 @@ import java.util.ArrayList;
 
 public class Decryptographer {
 
-    Key key;
-    ArrayList<Integer> numbers;
-    private int num;
+    private final Key key;
+    private final ArrayList<Integer> numbers;
     final int numSize = 5;
 
     public Decryptographer(Key key) {
         this.key = key;
-        this.num = key.get5DigitNumber();
+        int num = key.get5DigitNumber();
         this.numbers = new ArrayList<>();
 
         while (num > 0) {  //Delar upp keyn i en arraylist av typ Integer
