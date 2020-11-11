@@ -1,17 +1,20 @@
+import org.jetbrains.annotations.NotNull;
 import se.lth.cs.p.inl1.*;
 import se.lth.cs.p.inl1.nbr12.Key;
 import se.lth.cs.p.inl1.nbr12.TestCase;
+
 import java.util.ArrayList;
 
 public class Decryptographer {
 
     private final Key key;
     private final ArrayList<Integer> numbers;
-    final int numSize = 5;
+    private final int numSize;
 
     public Decryptographer(Key key) {
         this.key = key;
         int num = key.get5DigitNumber();
+        this.numSize = (int)(Math.log10(num)+1);
         this.numbers = new ArrayList<>();
 
         while (num > 0) {  //Delar upp keyn i en arraylist av typ Integer
@@ -20,22 +23,17 @@ public class Decryptographer {
         }
     }
 
-    public String decrypt(String text) {
+    public String decrypt(@NotNull String text) {
         StringBuilder stringBuilder = new StringBuilder();
-        ArrayList<Character> encryptedCharacters = new ArrayList<>();
-
-        for (int i = 0; i < text.length(); i++) { // delar upp String text i en char arraylist
-            encryptedCharacters.add(text.charAt(i));
-        }
 
         int keyPosition = 0;
-        for (char c : encryptedCharacters) {
-            if (c == ' ') {
+        for (char c : text.toCharArray()) {
+            if (c != ' ') {
+                stringBuilder.append(getDecryptedChar(c, numbers.get(keyPosition % numSize))); //index 0,1,2,3,4,0,1,2,3,4...
+                keyPosition++;
+            } else {
                 stringBuilder.append(c);
-                continue; //om det är mellanslag skippa till nästa iteration av loopen bara
             }
-            stringBuilder.append(getDecryptedChar(c, numbers.get(keyPosition % numSize))); //Talet upprepas när den 5e siffran uttnyttjas.
-            keyPosition++;
         }
         return stringBuilder.toString();
     }
@@ -73,5 +71,4 @@ public class Decryptographer {
             window.waitForMouseClick();
         }
     }
-
 }
