@@ -2,25 +2,24 @@ import java.awt.*;
 
 public class Generator {
 
-    private final static int ITERATIONS = 200;
     private final Color[] colorArray = new Color[ITERATIONS];
+    private final static int ITERATIONS = 200;
+    private int pixelCount = 1;
 
     public Generator() {
         for (int i = 0; i < ITERATIONS; i++) {
             colorArray[i] = new Color(0, 0, i + 20);
         }
-
     }
 
     public void render(MandelbrotGUI gui) {
         gui.disableInput();
         Complex[][] mesh = mesh(gui.getMinimumReal(), gui.getMaximumReal(),
                 gui.getMinimumImag(), gui.getMaximumImag(), gui.getWidth(), gui.getHeight());
-        int pixelCount = 1;
+
 
         switch (gui.getResolution()) {
-            case MandelbrotGUI.RESOLUTION_VERY_HIGH -> {
-            }
+            case MandelbrotGUI.RESOLUTION_VERY_HIGH -> pixelCount = 1;
             case MandelbrotGUI.RESOLUTION_HIGH -> pixelCount = 3;
             case MandelbrotGUI.RESOLUTION_MEDIUM -> pixelCount = 5;
             case MandelbrotGUI.RESOLUTION_LOW -> pixelCount = 7;
@@ -29,7 +28,7 @@ public class Generator {
         Color[][] picture = new Color[gui.getHeight()][gui.getWidth()];
 
         for (int i = 0; i < gui.getHeight(); i++) {
-            for (int j = 0; j < gui.getHeight(); j++) {
+            for (int j = 0; j < gui.getWidth(); j++) {
                 Complex c = new Complex(0, 0);
                 int count = 0;
                 while (count++ < ITERATIONS && c.getAbs2() <= 2) {
@@ -45,7 +44,6 @@ public class Generator {
                             picture[i / pixelCount][j / pixelCount] = Color.WHITE;
                         }
                     }
-
                     case MandelbrotGUI.MODE_COLOR -> {
                         if (count < ITERATIONS) {
                             picture[i / pixelCount][j / pixelCount] = colorArray[count];
